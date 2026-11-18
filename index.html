@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080d19">
+<title>JARVIS AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#080d19;color:#eaf3ff;
+ font-family:Arial,sans-serif;min-height:100vh;
+ display:flex;justify-content:center;
+}
+.app{width:100%;max-width:650px;padding:22px 17px}
+header{text-align:center;padding:30px 0}
+.logo{
+ width:105px;height:105px;border-radius:50%;
+ margin:auto;display:grid;place-items:center;
+ border:2px solid #38bdf8;
+ box-shadow:0 0 35px #0284c766;
+ font-size:37px;color:#7dd3fc;
+}
+h1{letter-spacing:7px;font-size:29px;margin:20px 0 5px}
+.sub{color:#7dd3fc;font-size:12px;letter-spacing:3px}
+.status{color:#4ade80;font-size:12px;margin-top:15px}
+.chat{
+ height:48vh;min-height:260px;max-height:440px;
+ overflow:auto;background:#101a2c;
+ border:1px solid #233b58;border-radius:17px;
+ padding:15px;
+}
+.msg{
+ padding:12px 14px;border-radius:13px;
+ margin:9px 0;max-width:90%;line-height:1.5;
+ overflow-wrap:anywhere;
+}
+.bot{background:#1c3551;color:#e0f2fe}
+.user{background:#075985;margin-left:auto}
+.caption{font-size:11px;color:#7dd3fc;margin-bottom:5px}
+.controls{display:flex;gap:8px;margin-top:14px}
+input{
+ flex:1;min-width:0;background:#111d30;
+ border:1px solid #34506f;border-radius:12px;
+ padding:15px;color:white;font-size:15px;
+}
+button{
+ background:#0284c7;color:white;border:0;
+ border-radius:12px;padding:13px 17px;
+ font-weight:bold;font-size:15px;
+}
+button:active{opacity:.7}
+.note{font-size:11px;color:#8295ad;text-align:center;margin-top:17px}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="logo">J</div>
+ <h1>JARVIS</h1>
+ <div class="sub">PERSONAL AI ASSISTANT</div>
+ <div class="status">● SYSTEM ONLINE</div>
+</header>
+<div class="chat" id="chat">
+ <div class="msg bot">
+  <div class="caption">JARVIS</div>
+  Привет! Я JARVIS — твой виртуальный помощник. Чем могу помочь?
+ </div>
+</div>
+<div class="controls">
+ <input id="question" placeholder="Напиши сообщение..." autocomplete="off">
+ <button onclick="send()">➤</button>
+</div>
+<div class="note">JARVIS AI · Первая версия интерфейса</div>
+</div>
+<script>
+const chat=document.getElementById('chat');
+const input=document.getElementById('question');
+
+function addMessage(text,type){
+ const div=document.createElement('div');
+ div.className='msg '+type;
+ if(type==='bot'){
+  const label=document.createElement('div');
+  label.className='caption';
+  label.textContent='JARVIS';
+  div.appendChild(label);
+ }
+ const content=document.createElement('div');
+ content.textContent=text;
+ div.appendChild(content);
+ chat.appendChild(div);
+ chat.scrollTop=chat.scrollHeight;
+}
+
+function send(){
+ const value=input.value.trim();
+ if(!value)return;
+ addMessage(value,'user');
+ input.value='';
+ addMessage(
+  'Интерфейс работает! Для настоящих ответов мне ещё нужно подключить ИИ-сервис.',
+  'bot'
+ );
+}
+input.addEventListener('keydown',e=>{
+ if(e.key==='Enter')send();
+});
+</script>
+</body>
+</html>
